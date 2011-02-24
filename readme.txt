@@ -6,11 +6,11 @@ Requires at least: 3.0
 Tested up to: 3.1
 Stable tag: trunk
 
-Helper plugin that provides conditional functions for detecting a variety of mobile devices & tablets. Perfect accompaniment for CSS Media Queries.
+Helper plugin that provides conditional functions for detecting a variety of mobile devices & tablets. Perfect accompaniment to CSS Media Queries.
 
 == Description ==
 
-mobble provides mobile related conditional functions for your site. e.g. as [is_iphone(), is_mobile() and is_tablet()](http://wordpress.org/extend/plugins/mobble/faq/ "More examples").
+mobble provides mobile related conditional functions for your site. e.g. [is_iphone(), is_mobile() and is_tablet()](http://wordpress.org/extend/plugins/mobble/faq/ "More examples").
 
 CSS media queries are great for creating responsive web designs but they do not always provide enough control.
 There are times when not all of the content, JavaScript or CSS on a page is relevant for a particular device.
