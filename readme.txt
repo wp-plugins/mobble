@@ -1,9 +1,9 @@
 === mobble ===
-Contributors: toggle
+Contributors: toggle,scottsweb
 Donate link: http://www.toggle.uk.com
 Tags: mobile, conditional, css, media, queries, functions
 Requires at least: 3.0
-Tested up to: 3.1
+Tested up to: 3.2.1
 Stable tag: trunk
 
 Helper plugin that provides conditional functions for detecting a variety of mobile devices & tablets. Perfect accompaniment to CSS Media Queries.
@@ -91,6 +91,11 @@ if (is_ios()) {
 2. mobble settings screen for enabling/disabling the body class.
 
 == Changelog ==
+
+= 1.1 =
+* Correction to the PHP.
+* New body class of .desktop for anything not handheld
+* Tested on 3.2+
 
 = 1.0 =
 * Initial release.

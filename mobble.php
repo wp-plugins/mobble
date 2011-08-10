@@ -8,7 +8,7 @@
 	Plugin URI: http://www.toggle.uk.com/journal/mobble
 	Description: Conditional functions for detecting a variety of mobile devices and tablets. For example is_android(), is_ios(), is_iphone().
 	Author: Scott Evans
-	Version: 1.0
+	Version: 1.1
 	Author URI: http://www.toggle.uk.com/
 
 	Copyright (c) 2011 toggle labs ltd <http://www.toggle.uk.com>
@@ -325,7 +325,7 @@ function mobble_settings() {
 		<p>Developed by <a href="http://www.toggle.uk.com" title="toggle - WordPress website development">toggle</a>. If you find this plugin useful we'd be flattered to be Flattr'd:<br/><a class="FlattrButton" style="display:none; " rev="flattr;button:compact;" href="http://www.toggle.uk.com/journal/mobble/"></a></p>
 	</div>
 </div>
-<? 
+<?php 
 }
 
 function mobble_register_settings() {
@@ -371,6 +371,7 @@ function mobble_body_class($classes)
 	if (is_nintendo()) { $classes[] = "nintendo"; }
 	
 	// bonus
+	if (!is_handheld()) { $classes[] = "desktop"; }
 	if ($is_lynx) { $classes[] = "lynx"; }
 	if ($is_gecko) { $classes[] = "gecko"; }
 	if ($is_opera) { $classes[] = "opera"; }
@@ -383,3 +384,4 @@ function mobble_body_class($classes)
 }
 
 /* fin */
+?>
