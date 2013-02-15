@@ -425,7 +425,7 @@ function mobble_body_class($classes) {
 	if (is_windows_mobile()) { $classes[] = "windows-mobile"; }
 	//if (is_lg()) { $classes[] = "lg"; }
 	if (is_motorola()) { $classes[] = "motorola"; }
-	if (is_smartphone()) { $classes[] = "smarthpone"; }
+	//if (is_smartphone()) { $classes[] = "smartphone"; }
 	//if (is_nokia()) { $classes[] = "nokia"; }
 	if (is_samsung()) { $classes[] = "samsung"; }
 	if (is_samsung_tablet()) { $classes[] = "samsung-tablet"; }
