@@ -14,13 +14,11 @@ Helper plugin that provides conditional functions for detecting a variety of mob
 
 mobble provides mobile related conditional functions for your site. e.g. [is_iphone(), is_mobile() and is_tablet()](http://wordpress.org/extend/plugins/mobble/faq/ "More examples").
 
-CSS media queries are great for creating responsive web designs but they do not always provide enough control.
-There are times when not all of the content, JavaScript or CSS on a page is relevant for a particular device.
+CSS media queries are great for creating responsive web designs but they do not always provide enough control. There are times when not all of the content, JavaScript or CSS on a page is relevant for a particular device. With the mobble functions you can make these kind of tweaks to your theme. 
 
-With the mobble functions you can make these kind of tweaks to your theme. mobble can also add device information 
-to the body class of your theme allowing you to easily target your CSS for different gadgets.
+mobble can also add device information to the body class of your theme allowing you to easily target your CSS for different gadgets.
 
-[a plugin by Scott Evans](http://scott.ee/ "WordPress web design Farnham, Surrey")
+[a plugin by Scott Evans](http://scott.ee/ "Freelance WordPress web design Farnham, Surrey")
 
 == Installation ==
 
@@ -28,7 +26,7 @@ To install this plugin:
 
 1. Upload the `mobble` folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. You can now use `<?php is_mobile(); is_tablet(); // etc ?>` functions in your template
+1. You can now use `<?php is_mobile(); is_tablet(); // etc ?>` functions in your themes/templates
 1. If you want you can also disable the device specific body classes in the WordPress Admin->Settings->mobble setting section
 
 == Frequently Asked Questions ==
