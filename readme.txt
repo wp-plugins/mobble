@@ -1,7 +1,7 @@
 === mobble ===
 Contributors: scottsweb
 Donate link: https://flattr.com/profile/scottsweb/things
-Tags: mobile, conditional, css, media, queries, functions
+Tags: mobile, conditional, css, media, queries, functions, responsive, rwd, adaptive
 Requires at least: 3.0
 Tested up to: 3.6-alpha
 Stable tag: trunk
