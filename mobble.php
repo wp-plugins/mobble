@@ -5,13 +5,15 @@
 	------
 	
 	Plugin Name: mobble
-	Plugin URI: http://www.toggle.uk.com/journal/mobble
+	Plugin URI: http://scott.ee/journal/mobble/
 	Description: Conditional functions for detecting a variety of mobile devices and tablets. For example is_android(), is_ios(), is_iphone().
 	Author: Scott Evans
-	Version: 1.1
-	Author URI: http://www.toggle.uk.com/
+	Version: 1.2
+	Author URI: http://scott.ee
+	License: GPLv2 or later
+	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-	Copyright (c) 2011 toggle labs ltd <http://www.toggle.uk.com>
+	Copyright (c) 2013 Scott Evans <http://scott.ee>
 
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -32,7 +34,16 @@
 
 */
 
+define('MOBBLE_PATH', dirname(__FILE__));
+define('MOBBLE_URL', untrailingslashit(plugins_url('/',__FILE__)));
+
+if (!class_exists('Mobile_Detect')) {
+	include(MOBBLE_PATH . '/mobile-detect.php');	
+}
+
 $useragent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : "";
+$mobble_detect = new Mobile_Detect();
+$mobble_detect->setDetectionType('extended');
 
 /***************************************************************
 * Function is_iphone
@@ -40,8 +51,8 @@ $useragent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 
 ***************************************************************/
 
 function is_iphone() {
-	global $useragent;
-	return(preg_match('/iphone/i',$useragent));
+	global $mobble_detect;
+	return($mobble_detect->isIphone());
 }
 
 /***************************************************************
@@ -50,8 +61,8 @@ function is_iphone() {
 ***************************************************************/
 
 function is_ipad() {
-	global $useragent;
-	return(preg_match('/ipad/i',$useragent));
+	global $mobble_detect;
+	return($mobble_detect->isIpad());
 }
 
 /***************************************************************
@@ -60,18 +71,18 @@ function is_ipad() {
 ***************************************************************/
 
 function is_ipod() {
-	global $useragent;
-	return(preg_match('/ipod/i',$useragent));
+	global $mobble_detect;
+	return($mobble_detect->is('iPod'));
 }
 
 /***************************************************************
 * Function is_android
-* Detect an android device. They *SHOULD* all behave the same
+* Detect an android device.
 ***************************************************************/
 
 function is_android() {
-	global $useragent;
-	return(preg_match('/android/i',$useragent));
+	global $mobble_detect;
+	return($mobble_detect->isAndroidOS());
 }
 
 /***************************************************************
@@ -80,8 +91,8 @@ function is_android() {
 ***************************************************************/
 
 function is_blackberry() {
-	global $useragent;
-	return(preg_match('/blackberry/i',$useragent));
+	global $mobble_detect;
+	return($mobble_detect->isBlackBerry());
 }
 
 /***************************************************************
@@ -90,18 +101,29 @@ function is_blackberry() {
 ***************************************************************/
 
 function is_opera_mobile() {
-	global $useragent;
-	return(preg_match('/opera mini/i',$useragent));
+	global $mobble_detect;
+	return($mobble_detect->isOpera());
 }
 
 /***************************************************************
-* Function is_palm
+* Function is_palm - to be phased out as not using new detect library?
 * Detect a webOS device such as Pre and Pixi
 ***************************************************************/
 
 function is_palm() {
-	global $useragent;
-	return(preg_match('/webOS/i', $useragent));
+	_deprecated_function('is_palm', '1.2', 'is_webos');
+	global $mobble_detect;
+	return($mobble_detect->is('webOS'));
+}
+
+/***************************************************************
+* Function is_webos
+* Detect a webOS device such as Pre and Pixi
+***************************************************************/
+
+function is_webos() {
+	global $mobble_detect;
+	return($mobble_detect->is('webOS'));
 }
 
 /***************************************************************
@@ -110,8 +132,8 @@ function is_palm() {
 ***************************************************************/
 
 function is_symbian() {
-	global $useragent;
-	return(preg_match('/Series60/i', $useragent) || preg_match('/Symbian/i', $useragent));
+	global $mobble_detect;
+	return($mobble_detect->is('Symbian'));
 }
 
 /***************************************************************
@@ -120,8 +142,8 @@ function is_symbian() {
 ***************************************************************/
 
 function is_windows_mobile() {
-	global $useragent;
-	return(preg_match('/WM5/i', $useragent) || preg_match('/WindowsMobile/i', $useragent));
+	global $mobble_detect;
+	return($mobble_detect->is('WindowsMobileOS') || $mobble_detect->is('WindowsPhoneOS'));
 }
 
 /***************************************************************
@@ -130,6 +152,7 @@ function is_windows_mobile() {
 ***************************************************************/
 
 function is_lg() {
+	_deprecated_function('is_lg', '1.2');
 	global $useragent;
 	return(preg_match('/LG/i', $useragent));
 }
@@ -140,8 +163,8 @@ function is_lg() {
 ***************************************************************/
 
 function is_motorola() {
-	global $useragent;
-	return(preg_match('/\ Droid/i', $useragent) || preg_match('/XT720/i', $useragent) || preg_match('/MOT-/i', $useragent) || preg_match('/MIB/i', $useragent));
+	global $mobble_detect;
+	return($mobble_detect->is('Motorola'));
 }
 
 /***************************************************************
@@ -150,6 +173,7 @@ function is_motorola() {
 ***************************************************************/
 
 function is_nokia() {
+	_deprecated_function('is_nokia', '1.2');
 	global $useragent;
 	return(preg_match('/Series60/i', $useragent) || preg_match('/Symbian/i', $useragent) || preg_match('/Nokia/i', $useragent));
 }
@@ -160,8 +184,8 @@ function is_nokia() {
 ***************************************************************/
 
 function is_samsung() {
-	global $useragent;
-	return(preg_match('/Samsung/i', $useragent));
+	global $mobble_detect;
+	return($mobble_detect->is('Samsung'));
 }
 
 /***************************************************************
@@ -170,8 +194,28 @@ function is_samsung() {
 ***************************************************************/
 
 function is_samsung_galaxy_tab() {
-	global $useragent;
-	return(preg_match('/SPH-P100/i', $useragent));
+	_deprecated_function('is_samsung_galaxy_tab', '1.2', 'is_samsung_tablet');
+	return is_samsung_tablet();
+}
+
+/***************************************************************
+* Function is_samsung_tablet
+* Detect the Galaxy tab
+***************************************************************/
+
+function is_samsung_tablet() {
+	global $mobble_detect;
+	return($mobble_detect->is('SamsungTablet'));
+}
+
+/***************************************************************
+* Function is_kindle
+* Detect an Amazon kindle
+***************************************************************/
+
+function is_kindle() {
+	global $mobble_detect;
+	return($mobble_detect->is('Kindle'));
 }
 
 /***************************************************************
@@ -180,8 +224,8 @@ function is_samsung_galaxy_tab() {
 ***************************************************************/
 
 function is_sony_ericsson() {
-	global $useragent;
-	return(preg_match('/SonyEricsson/i', $useragent));
+	global $mobble_detect;
+	return($mobble_detect->is('Sony'));
 }
 
 /***************************************************************
@@ -194,13 +238,29 @@ function is_nintendo() {
 	return(preg_match('/Nintendo DSi/i', $useragent) || preg_match('/Nintendo DS/i', $useragent));
 }
 
+
+/***************************************************************
+* Function is_smartphone
+* Grade of phone A = Smartphone - currently testing this
+***************************************************************/
+
+function is_smartphone() {
+	global $mobble_detect;
+	$grade = $mobble_detect->mobileGrade();
+	if ($grade == 'A' || $grade == 'B') {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 /***************************************************************
 * Function is_handheld
 * Wrapper function for detecting ANY handheld device
 ***************************************************************/
 
 function is_handheld() {
-	return(is_iphone() || is_ipad() || is_ipod() || is_android() || is_blackberry() || is_opera_mobile() || is_palm() || is_symbian() || is_windows_mobile() || is_lg() || is_motorola() || is_nokia() || is_samsung() || is_samsung_galaxy_tab() || is_sony_ericsson() || is_nintendo());
+	return(is_iphone() || is_ipad() || is_ipod() || is_android() || is_blackberry() || is_opera_mobile() || is_webos() || is_symbian() || is_windows_mobile() || is_motorola() || is_samsung() || is_samsung_tablet() || is_sony_ericsson() || is_nintendo());
 }
 
 /***************************************************************
@@ -209,8 +269,8 @@ function is_handheld() {
 ***************************************************************/
 
 function is_mobile() {
-	if (is_tablet()) { return false; }  // this catches the problem where an Android device may also be a tablet device
-	return(is_iphone() || is_ipod() || is_android() || is_blackberry() || is_opera_mobile() || is_palm() || is_symbian() || is_windows_mobile() || is_lg() || is_motorola() || is_nokia() || is_samsung() || is_sony_ericsson() || is_nintendo());
+	global $mobble_detect;
+	return ($mobble_detect->isMobile());
 }
 
 /***************************************************************
@@ -219,8 +279,8 @@ function is_mobile() {
 ***************************************************************/
 
 function is_ios() {
-	return(is_iphone() || is_ipad() || is_ipod());
-
+	global $mobble_detect;
+	return($mobble_detect->isiOS());
 }
 
 /***************************************************************
@@ -229,7 +289,8 @@ function is_ios() {
 ***************************************************************/
 
 function is_tablet() {
-	return(is_ipad() || is_samsung_galaxy_tab());
+	global $mobble_detect;
+	return($mobble_detect->isTablet());
 }
 
 /***************************************************************
@@ -290,9 +351,9 @@ function mobble_settings() {
 
 <style type="text/css">
 	.FlattrButton { position: relative; top: 3px !important; }
-	.togglecredit { padding: 10px 10px 10px 10px; background: #f1f1f1; border-bottom: 1px solid #e3e3e3; overflow: hidden; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; }
-	.togglecredit img { float: left;  padding: 8px 11px 8px 5px; margin: 5px 5px 0 0; border-right: 1px solid #aaaaaa; }
-	.togglecredit p { float: left; padding: 5px 0; margin: 0 0 0 8px;}
+	.scottsweb-credit { padding: 10px 10px 10px 10px; background: #f1f1f1; border-bottom: 1px solid #e3e3e3; overflow: hidden; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; }
+	.scottsweb-credit img { float: left;  padding: 10px 11px 10px 5px; margin: 5px 5px 0 0; border-right: 1px solid #aaaaaa; }
+	.scottsweb-credit p { float: left; padding: 5px 0; margin: 0 0 0 8px;}
 </style>
 
 <div class="wrap">
@@ -319,11 +380,12 @@ function mobble_settings() {
 			<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
 		</p>
 	</form>
-	
-	<div  class="togglecredit">
-		<a href="http://www.toggle.uk.com" title="toggle - WordPress website development"><img src="<?php echo MOBBLE_IMAGES_URL; ?>toggle.png" alt="toggle"/></a>
-		<p>Developed by <a href="http://www.toggle.uk.com" title="toggle - WordPress website development">toggle</a>. If you find this plugin useful we'd be flattered to be Flattr'd:<br/><a class="FlattrButton" style="display:none; " rev="flattr;button:compact;" href="http://www.toggle.uk.com/journal/mobble/"></a></p>
+
+	<div class="scottsweb-credit">
+		<a href="http://scott.ee" title="Scott Evans - Web Designer &amp; WordPress developer"><img src="<?php echo MOBBLE_URL; ?>/scott.ee.png" alt="scott logo"/></a>
+		<p>Developed by <a href="http://scott.ee" title="Scott Evans - Web Designer and WordPress developer">Scott Evans</a>. If you find this plugin useful I'd be flattered to be Flattr'd:<br/><a class="FlattrButton" style="display:none; " rev="flattr;button:compact;" href="http://scott.ee/journal/mobble/"></a></p>
 	</div>
+	
 </div>
 <?php 
 }
@@ -341,10 +403,9 @@ if (!is_admin() && get_option('mobble_body_class')) {
 	add_filter('body_class','mobble_body_class');
 }
 
-function mobble_body_class($classes) 
-{
+function mobble_body_class($classes) {
 
-	global $is_lynx, $is_gecko, $is_IE, $is_opera, $is_NS4, $is_safari, $is_chrome;
+	global $is_lynx, $is_gecko, $is_IE, $is_opera, $is_NS4, $is_safari, $is_chrome, $mobble_detect;
 
 	// top level
 	if (is_handheld()) { $classes[] = "handheld"; };
@@ -359,19 +420,21 @@ function mobble_body_class($classes)
 	if (is_android()) { $classes[] = "android"; };
 	if (is_blackberry()) { $classes[] = "blackberry"; };
 	if (is_opera_mobile()) { $classes[] = "opera-mobile";}
-	if (is_palm()) { $classes[] = "palm";}
+	if (is_webos()) { $classes[] = "webos";}
 	if (is_symbian()) { $classes[] = "symbian";}
 	if (is_windows_mobile()) { $classes[] = "windows-mobile"; }
-	if (is_lg()) { $classes[] = "lg"; }
+	//if (is_lg()) { $classes[] = "lg"; }
 	if (is_motorola()) { $classes[] = "motorola"; }
-	if (is_nokia()) { $classes[] = "nokia"; }
+	if (is_smartphone()) { $classes[] = "smarthpone"; }
+	//if (is_nokia()) { $classes[] = "nokia"; }
 	if (is_samsung()) { $classes[] = "samsung"; }
-	if (is_samsung_galaxy_tab()) { $classes[] = "samsung-galaxy-tab"; }
+	if (is_samsung_tablet()) { $classes[] = "samsung-tablet"; }
 	if (is_sony_ericsson()) { $classes[] = "sony-ericsson"; }
 	if (is_nintendo()) { $classes[] = "nintendo"; }
 	
 	// bonus
 	if (!is_handheld()) { $classes[] = "desktop"; }
+	
 	if ($is_lynx) { $classes[] = "lynx"; }
 	if ($is_gecko) { $classes[] = "gecko"; }
 	if ($is_opera) { $classes[] = "opera"; }

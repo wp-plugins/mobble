@@ -1,10 +1,12 @@
 === mobble ===
-Contributors: toggle,scottsweb
-Donate link: http://www.toggle.uk.com
+Contributors: scottsweb
+Donate link: http://scott.ee
 Tags: mobile, conditional, css, media, queries, functions
 Requires at least: 3.0
-Tested up to: 3.2.1
+Tested up to: 3.6-alpha
 Stable tag: trunk
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Helper plugin that provides conditional functions for detecting a variety of mobile devices & tablets. Perfect accompaniment to CSS Media Queries.
 
@@ -15,14 +17,10 @@ mobble provides mobile related conditional functions for your site. e.g. [is_iph
 CSS media queries are great for creating responsive web designs but they do not always provide enough control.
 There are times when not all of the content, JavaScript or CSS on a page is relevant for a particular device.
 
-Lets say you're in the countryside with a limited data connection and you're trying to find an address for your 
-next meeting. We should not force you to download unnecessary content and load heavy JavaScript libraries 
-that waste your time and your data allowance. 
-
 With the mobble functions you can make these kind of tweaks to your theme. mobble can also add device information 
 to the body class of your theme allowing you to easily target your CSS for different gadgets.
 
-[a toggle plugin](http://www.toggle.uk.com/ "toggle web design Farnham")
+[a plugin by Scott Evans](http://scott.ee/ "WordPress web design Farnham, Surrey")
 
 == Installation ==
 
@@ -41,8 +39,8 @@ The most useful ones are:
 
 `<?php 
 is_handheld(); // any handheld device (phone, tablet, Nintendo)
-is_mobile(); // any type of mobile phone (iPhone, Android, Nokia etc)
-is_tablet(); // any tablet device (currently iPad, Galaxy Tab)
+is_mobile(); // any type of mobile phone (iPhone, Android, etc)
+is_tablet(); // any tablet device
 is_ios(); // any Apple device (iPhone, iPad, iPod)
 ?>`
 
@@ -55,17 +53,17 @@ is_ipod();
 is_android();
 is_blackberry();
 is_opera_mobile();
-is_palm();
 is_symbian();
+is_kindle();
 is_windows_mobile();
-is_lg();
 is_motorola();
-is_nokia();
 is_samsung();
-is_samsung_galaxy_tab();
+is_samsung_tablet();
 is_sony_ericsson();
 is_nintendo();
 ?>`
+
+Inspecting mobile-detect.php will also reveal some other useful tools.
 
 = Do you have any examples? =
 
@@ -85,12 +83,21 @@ if (is_ios()) {
 }
 ?>`
 
+= Caching =
+Please note that in certain setups caching will cause undesired behaviour. If your cache is set too aggressively PHP will be skipped and the device detection will not work. 
+
 == Screenshots ==
 
 1. Code example - loading different navigations for mobile and desktop.
 2. mobble settings screen for enabling/disabling the body class.
 
 == Changelog ==
+
+= 1.2 = 
+* Now uses mobile-detect (http://mobiledetect.net/) which provides more accurate and varied detection
+* Mobiles can now be graded (A,B,C) using the mobile-detect API (see mobile-detect.php) or mobiledetect.net 
+* is_palm, is_lg, is_nokia will be removed soon - check depricated notices
+* New check for is_kindle - feedback on this one appreciated as I cannot test it
 
 = 1.1 =
 * Correction to the PHP.
