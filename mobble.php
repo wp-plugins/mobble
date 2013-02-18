@@ -260,22 +260,23 @@ function is_smartphone() {
 ***************************************************************/
 
 function is_handheld() {
-	return(is_iphone() || is_ipad() || is_ipod() || is_android() || is_blackberry() || is_opera_mobile() || is_webos() || is_symbian() || is_windows_mobile() || is_motorola() || is_samsung() || is_samsung_tablet() || is_sony_ericsson() || is_nintendo());
+	return(is_mobile() || is_iphone() || is_ipad() || is_ipod() || is_android() || is_blackberry() || is_opera_mobile() || is_webos() || is_symbian() || is_windows_mobile() || is_motorola() || is_samsung() || is_samsung_tablet() || is_sony_ericsson() || is_nintendo());
 }
 
 /***************************************************************
 * Function is_mobile
-* Wrapper function for detecting ANY mobile phone device
+* For detecting ANY mobile phone device
 ***************************************************************/
 
 function is_mobile() {
 	global $mobble_detect;
+	if (is_tablet()) return false;
 	return ($mobble_detect->isMobile());
 }
 
 /***************************************************************
 * Function is_ios
-* Wrapper function for detecting ANY iOS/Apple device
+* For detecting ANY iOS/Apple device
 ***************************************************************/
 
 function is_ios() {
@@ -285,7 +286,7 @@ function is_ios() {
 
 /***************************************************************
 * Function is_tablet
-* Wrapper function for detecting tablet devices (needs work)
+* For detecting tablet devices (needs work)
 ***************************************************************/
 
 function is_tablet() {

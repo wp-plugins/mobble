@@ -1,7 +1,7 @@
 === mobble ===
 Contributors: scottsweb
 Donate link: https://flattr.com/profile/scottsweb/things
-Tags: mobile, conditional, css, media, queries, functions, responsive, rwd, adaptive
+Tags: mobile, conditional, css, media, queries, functions
 Requires at least: 3.0
 Tested up to: 3.6-alpha
 Stable tag: trunk
@@ -90,6 +90,10 @@ Please note that in certain setups caching will cause undesired behaviour. If yo
 2. mobble settings screen for enabling/disabling the body class.
 
 == Changelog ==
+
+= 1.2.1 = 
+* Small bug fix on is_mobile() 
+* Moved screenshots out of trunk
 
 = 1.2 = 
 * Now uses mobile-detect (http://mobiledetect.net/) which provides more accurate and varied detection
